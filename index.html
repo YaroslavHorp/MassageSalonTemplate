@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotus Massage Salon</title>
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <title src="img/logo.png" alt="logo">Lotus Massage Salon</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
+
     <header>
         <div class="menu">
             <img src="img/logo.png" alt="Logo" class="logo">
@@ -15,30 +17,41 @@
                 <a href="#about">About Us</a>
                 <a href="#services">Services</a>
                 <a href="#">Contact</a>
-                <a href="#"><img src="" alt="flag"></a>
+                <a href="indexPL.html"><img src="img/poland_flag.png" alt="Poland flag" class="flag"></a>
             </nav>
         </div>
     </header>
+
     <main>
         <div class="container entry-container">
             <h1>Lotus – Massage Salon in Bielsko-Biała</h1>
             <h3>We’ll make sure your body, shoulder, and back pain no longer bother you</h3>
+            
         </div>
+
         <div class="container galery-container">
-            <img src="img/masaz_1.jpg" alt="Masaż 1" class="masaz">
-            <img src="img/masaz_2.jpg" alt="Masaż 2" class="masaz">
-            <img src="img/masaz_3.jpg" alt="Masaż 3" class="masaz">
+            <div class="slider">
+                <div class="slides"></div>
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+            </div>
         </div>
+
         <div id="about" class="container about-container">
           <h2>About Us</h2>
-          <h4></h4>
+            <p>
+                At <b>Lotus Massage Salon</b>, we believe that true relaxation begins with caring for both body and mind.  
+                Our team of experienced therapists ensures your well-being with professional treatments tailored to your needs.  
+                We focus on creating a calm atmosphere, using natural oils, and providing a personalized experience for every client.
+            </p>
         </div>
+
         <div id="services" class="container service-container">
             <h4>Services</h4>
             <h2>Here’s what we can do for you:</h2>
             <div class="service-content">
-                <img src="img/uslugi_1.jpg" alt="Usługi 1" class="service-img">
-                < <table>
+                <img src="img/service_1.jpg" alt="Service 1" class="service-img">
+                 <table>
                     <thead>
                         <tr>
                             <th>Service</th>
@@ -74,14 +87,18 @@
                 </table>
             </div>
         </div>
+
         <div id="contact" class="container contac-container">
-          <h4>Contact</h4>
-          <div class="contact-content">
-           <a href="#"><img src="img/inst.png" class="inst"></a>
-           <a href="#"><img src="img/fcbk.png" class="fcbk"></a>
-          </div>
-          <h2 class="number">+48123456789</h2>
+            <h2>Contact</h2>
+            <div class="contact-content">
+                <a href="#"><img src="img/inst.png" class="inst"></a>
+                <a href="#"><img src="img/fcbk.png" class="fcbk"></a>
+            </div>
+            <h4 class="number">Number: +48123456789</h4>
+            <h4 class="mail">Email: example@gmail.com</h4>
         </div>
+
     </main>
+
 </body>
 </html>
