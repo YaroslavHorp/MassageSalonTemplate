@@ -1,4 +1,3 @@
-// List of image paths
 const images = [
   "img/massage_1.jpg",
   "img/massage_2.jpg",
@@ -7,70 +6,74 @@ const images = [
   "img/massage_5.jpg"
 ];
 
-// Select main elements
 const slides = document.querySelector('.slides');
 const prevBtn = document.querySelector('.prev');
 const nextBtn = document.querySelector('.next');
 
-let index = 0   ;
+let index = 1; // start from 1 because we will clone first and last
+const visibleCount = 2; // 2 images visible at a time
 
-// Create and append image elements dynamically
+// --- Create clones for infinite loop ---
+const firstClone = document.createElement('img');
+firstClone.src = images[0];
+firstClone.alt = "Massage";
+firstClone.classList.add('massage-img');
+
+const lastClone = document.createElement('img');
+lastClone.src = images[images.length - 1];
+lastClone.alt = "Massage";
+lastClone.classList.add('massage-img');
+
+// --- Append slides ---
+slides.appendChild(lastClone); // last clone at the beginning
 images.forEach(src => {
   const img = document.createElement('img');
   img.src = src;
   img.alt = "Massage";
-  img.classList.add('masaz');
+  img.classList.add('massage-img');
   slides.appendChild(img);
 });
+slides.appendChild(firstClone); // first clone at the end
 
-// Function to move slides
-function showSlide() {
-  slides.style.transform = `translateX(${-index * 50}%)`;
+// --- Set initial position ---
+function updateSlidePosition(transition = true) {
+  slides.style.transition = transition ? "transform 0.5s ease" : "none";
+  slides.style.transform = `translateX(${-index * (100/visibleCount)}%)`;
 }
 
-const maxIndex = 3;  // since we show 2 images at a time, max index is length - 2
-// Next button click event
-nextBtn.addEventListener('click', () => {
-  if (index === maxIndex) {
-    index = 0; 
-  } else {
-    index++;
+updateSlidePosition(false);
+
+// --- Next / Prev ---
+function nextSlide() {
+  index++;
+  updateSlidePosition();
+}
+
+function prevSlide() {
+  index--;
+  updateSlidePosition();
+}
+
+nextBtn.addEventListener('click', nextSlide);
+prevBtn.addEventListener('click', prevSlide);
+
+// --- Infinite loop adjustment ---
+slides.addEventListener('transitionend', () => {
+  if (index === images.length + 1) { // reached cloned first
+    index = 1; // jump to real first
+    updateSlidePosition(false);
   }
-  showSlide();
+  if (index === 0) { // reached cloned last
+    index = images.length; // jump to real last
+    updateSlidePosition(false);
+  }
 });
 
-// Previous button click event
-prevBtn.addEventListener('click', () => {
-  if (index === 0) {
-    index = maxIndex; 
-  } else {
-    index--;
-  }
-  showSlide();
-});
-
-// Touch swipe functionality
+// --- Swipe for mobile ---
 let startX = 0;
-
-slides.addEventListener('touchstart', e => {
-  startX = e.touches[0].clientX;
-});
-
+slides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
 slides.addEventListener('touchend', e => {
   const endX = e.changedTouches[0].clientX;
-
-  // Swipe left
-  if (startX - endX > 50) {
-    index = (index + 1) % images.length;
-    showSlide();
-  }
-
-  // Swipe right
-  else if (endX - startX > 50) {
-    index = (index - 1 + images.length) % images.length;
-    showSlide();
-  }
+  if (startX - endX > 50) nextSlide();   // swipe left
+  else if (endX - startX > 50) prevSlide(); // swipe right
 });
-
-// Initialize slider on page load
-showSlide();
